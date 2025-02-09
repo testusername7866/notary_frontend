@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 
+const API_BASE_URL = "https://notary-backend-yfwb.onrender.com"; // Updated API URL
+
 export default function NotaryTool() {
   const [file, setFile] = useState(null);
   const [text, setText] = useState("");
@@ -16,7 +18,7 @@ export default function NotaryTool() {
     formData.append("file", file);
 
     try {
-      const response = await axios.post("http://127.0.0.1:8000/upload/", formData);
+      const response = await axios.post(`${API_BASE_URL}/upload/`, formData);
       alert("File uploaded successfully: " + response.data.filename);
       setStep(2);
     } catch (error) {
@@ -30,7 +32,7 @@ export default function NotaryTool() {
     formData.append("file", file);
 
     try {
-      const response = await axios.post("http://127.0.0.1:8000/extract_text/", formData);
+      const response = await axios.post(`${API_BASE_URL}/extract_text/`, formData);
       setText(response.data.extracted_text);
       setStep(3);
     } catch (error) {
